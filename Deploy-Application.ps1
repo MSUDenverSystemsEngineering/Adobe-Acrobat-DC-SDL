@@ -160,7 +160,7 @@ Try {
 		Else{
 			Write-Log "No restart of explorer needed"
 		}
-		
+
 		Execute-Process -Path "$envCommonProgramFilesX86\Adobe\OOBE_Enterprise\RemoteUpdateManager\RemoteUpdateManager.exe" -WindowStyle "Hidden" -PassThru -IgnoreExitCodes '1'
 		Remove-File -Path "$envCommonDesktop\Adobe Creative Cloud.lnk" -ContinueOnError $true
 
@@ -236,9 +236,8 @@ Try {
 		[string]$installPhase = 'Post-Repair'
 
 		## <Perform Post-Repair tasks here>
+	}
 
-
-    }
 	##*===============================================
 	##* END SCRIPT BODY
 	##*===============================================
