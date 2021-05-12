@@ -127,8 +127,8 @@ Try {
 		Show-InstallationProgress
 
 		## <Perform Pre-Installation tasks here>
-				# Remove previous versions
-				Remove-MSIApplications -Name "Adobe Acrobat DC" -PassThru
+		# Remove previous versions
+		Remove-MSIApplications -Name "Adobe Acrobat DC" -PassThru
 
 		##*===============================================
 		##* INSTALLATION
@@ -151,19 +151,19 @@ Try {
 		[string]$installPhase = 'Post-Installation'
 
 		## <Perform Post-Installation tasks here>
-				#Fix Adobe's garbage installer if it kills explorer
-				$ProcessActive = Get-Process explorer -ErrorAction SilentlyContinue
-				if(!$ProcessActive){
-					Execute-ProcessAsUser -Path "$envSystemRoot\explorer.exe"
-					Write-Log "Restarting Explorer"
-				}
-				Else{
-					Write-Log "No restart of explorer needed"
-				}
+		#Fix Adobe's garbage installer if it kills explorer
+		$ProcessActive = Get-Process explorer -ErrorAction SilentlyContinue
+		if(!$ProcessActive){
+			Execute-ProcessAsUser -Path "$envSystemRoot\explorer.exe"
+			Write-Log "Restarting Explorer"
+		}
+		Else{
+			Write-Log "No restart of explorer needed"
+		}
 		
-				Execute-Process -Path "$envCommonProgramFilesX86\Adobe\OOBE_Enterprise\RemoteUpdateManager\RemoteUpdateManager.exe" -WindowStyle "Hidden" -PassThru -IgnoreExitCodes '1'
-				Remove-File -Path "$envCommonDesktop\Adobe Creative Cloud.lnk" -ContinueOnError $true
-		
+		Execute-Process -Path "$envCommonProgramFilesX86\Adobe\OOBE_Enterprise\RemoteUpdateManager\RemoteUpdateManager.exe" -WindowStyle "Hidden" -PassThru -IgnoreExitCodes '1'
+		Remove-File -Path "$envCommonDesktop\Adobe Creative Cloud.lnk" -ContinueOnError $true
+
 		## Display a message at the end of the install
 		If (-not $useDefaultMsi) {}
 	}
@@ -195,7 +195,7 @@ Try {
 		}
 
 		# <Perform Uninstallation tasks here>
-
+		Remove-MSIApplications -Name "Adobe Acrobat DC" -PassThru
 
 		##*===============================================
 		##* POST-UNINSTALLATION
@@ -203,7 +203,6 @@ Try {
 		[string]$installPhase = 'Post-Uninstallation'
 
 		## <Perform Post-Uninstallation tasks here>
-		Remove-MSIApplications -Name "Adobe Acrobat DC" -PassThru
 
 
 	}
@@ -218,7 +217,6 @@ Try {
 		Show-InstallationProgress
 
 		## <Perform Pre-Repair tasks here>
-		Show-InstallationWelcome -CloseApps 'acrobat,acrocef,acrodist,acrotray,adobe audition cc,adobe cef helper,adobe desktop service,adobe qt32 server,adobearm,adobecollabsync,adobegcclient,adobeipcbroker,adobeupdateservice,afterfx,agsservice,animate,armsvc,cclibrary,ccxprocess,cephtmlengine,coresync,creative cloud,dynamiclinkmanager,illustrator,indesign,node,pdapp,photoshop,firefox,chrome,excel,groove,iexplore,infopath,lync,onedrive,onenote,onenotem,outlook,mspub,powerpnt,winword,winproj,visio' -CloseAppsCountdown 60
 
 		##*===============================================
 		##* REPAIR
