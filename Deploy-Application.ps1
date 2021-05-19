@@ -164,6 +164,19 @@ Try {
 		Execute-Process -Path "$envCommonProgramFilesX86\Adobe\OOBE_Enterprise\RemoteUpdateManager\RemoteUpdateManager.exe" -WindowStyle "Hidden" -PassThru -IgnoreExitCodes '1'
 		Remove-File -Path "$envCommonDesktop\Adobe Creative Cloud.lnk" -ContinueOnError $true
 
+		##Tatoo registry to show "Shared" key value
+		$registryPath = "HKLM:\Software\appTatoo"
+		$tatoo = "Adobe License"
+		$tatValue = "Shared"
+
+		IF(!(Test-Path $registryPath)) {
+    		New-Item -Path $registryPath -Force | Out-Null
+    		New-ItemProperty -path $registryPath -Name $tatoo -Value $tatValue -PropertyType 'String' -Force | Out-Null
+		}
+		ELSE {
+    		New-ItemProperty -Path $registryPath -Name $tatoo -Value $tatValue -PropertyType 'String' -Force | Out-Null
+		}
+
 		## Display a message at the end of the install
 		If (-not $useDefaultMsi) {}
 	}
@@ -203,7 +216,11 @@ Try {
 		[string]$installPhase = 'Post-Uninstallation'
 
 		## <Perform Post-Uninstallation tasks here>
+		$registryPath = "HKLM:\Software\appTatoo"
+		$tatoo = "Adobe License"
+		$tatValue = "Shared"
 
+		Remove-ItemProperty -Path $registryPath -Name $tatoo -Force
 
 	}
 	ElseIf ($deploymentType -ieq 'Repair')
