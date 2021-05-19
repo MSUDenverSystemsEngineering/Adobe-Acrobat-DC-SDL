@@ -216,11 +216,11 @@ Try {
 		[string]$installPhase = 'Post-Uninstallation'
 
 		## <Perform Post-Uninstallation tasks here>
-		$registryPath = "HKLM:\Software\appTatoo"
+		$registryPath = "HKLM:\Software\AppTatoo"
 		$tatoo = "Adobe License"
 		$tatValue = "Shared"
 
-		Remove-ItemProperty -Path $registryPath -Name $tatoo -Force
+		Remove-ItemProperty -Path $registryPath -Name $tatoo -Force | Out-Null
 
 	}
 	ElseIf ($deploymentType -ieq 'Repair')
