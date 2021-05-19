@@ -128,7 +128,7 @@ Try {
 
 		## <Perform Pre-Installation tasks here>
 		# Remove previous versions
-		Remove-MSIApplications -Name "Adobe Acrobat DC" -PassThru
+		Remove-MSIApplications -Name "Adobe Acrobat DC" -PassThru -ContinueOnError $true
 
 		##*===============================================
 		##* INSTALLATION
