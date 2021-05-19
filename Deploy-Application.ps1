@@ -161,21 +161,11 @@ Try {
 			Write-Log "No restart of explorer needed"
 		}
 
-		Execute-Process -Path "$envCommonProgramFilesX86\Adobe\OOBE_Enterprise\RemoteUpdateManager\RemoteUpdateManager.exe" -WindowStyle "Hidden" -PassThru -IgnoreExitCodes '1'
+		Execute-Process -Path "$envCommonProgramFilesX86\Adobe\OOBE_Enterprise\RemoteUpdateManager\RemoteUpdateManager.exe" -WindowStyle "Hidden" -PassThru -IgnoreExitCodes '1,2'
 		Remove-File -Path "$envCommonDesktop\Adobe Creative Cloud.lnk" -ContinueOnError $true
 
 		##Tatoo registry to show "Shared" key value
-		## $registryPath = "HKLM:\Software\AppTatoo"
-		## $tatoo = "Adobe License"
-		## $tatValue = "Shared"
-
-		IF(!(Test-Path "HKLM:\Software\AppTatoo")) {
-    		New-Item -Path "HKLM:\Software\AppTatoo" -Force | Out-Null
-    		New-ItemProperty -path "HKLM:\Software\AppTatoo" -Name 'Adobe License' -Value 'Shared' -PropertyType 'String' -Force | Out-Null
-		}
-		ELSE {
-    		New-ItemProperty -Path "HKLM:\Software\AppTatoo" -Name 'Adobe License' -Value 'Shared' -PropertyType 'String' -Force | Out-Null
-		}
+		Set-RegistryKey -Key 'HKLM\Software\AppTatoo' -Name 'Adobe License' -Value 'Shared'
 
 		## Display a message at the end of the install
 		If (-not $useDefaultMsi) {}
@@ -220,7 +210,7 @@ Try {
 		$tatoo = "Adobe License"
 		$tatValue = "Shared"
 
-		Remove-ItemProperty -Path $registryPath -Name $tatoo -Force | Out-Null
+		Remove-RegistryKey -Key 'HKLM\Software\AppTatoo' -Name 'Adobe License'
 
 	}
 	ElseIf ($deploymentType -ieq 'Repair')
