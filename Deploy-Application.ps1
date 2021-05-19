@@ -128,7 +128,7 @@ Try {
 
 		## <Perform Pre-Installation tasks here>
 		# Remove previous versions
-		Remove-MSIApplications -Name "Adobe Acrobat DC" -PassThru -ContinueOnError $true
+		Remove-MSIApplications -Name "Adobe Acrobat DC" -ContinueOnError $true
 
 		##*===============================================
 		##* INSTALLATION
@@ -170,11 +170,11 @@ Try {
 		## $tatValue = "Shared"
 
 		IF(!(Test-Path "HKLM:\Software\AppTatoo")) {
-    		New-Item -Path "HKLM:\Software\AppTatoo" -Force
-    		New-ItemProperty -path "HKLM:\Software\AppTatoo" -Name 'Adobe License' -Value 'Shared' -PropertyType 'String' -Force
+    		New-Item -Path "HKLM:\Software\AppTatoo" -Force | Out-Null
+    		New-ItemProperty -path "HKLM:\Software\AppTatoo" -Name 'Adobe License' -Value 'Shared' -PropertyType 'String' -Force | Out-Null
 		}
 		ELSE {
-    		New-ItemProperty -Path "HKLM:\Software\AppTatoo" -Name 'Adobe License' -Value 'Shared' -PropertyType 'String' -Force
+    		New-ItemProperty -Path "HKLM:\Software\AppTatoo" -Name 'Adobe License' -Value 'Shared' -PropertyType 'String' -Force | Out-Null
 		}
 
 		## Display a message at the end of the install
