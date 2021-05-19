@@ -170,11 +170,11 @@ Try {
 		## $tatValue = "Shared"
 
 		IF(!(Test-Path "HKLM:\Software\AppTatoo")) {
-    		New-Item -Path "HKLM:\Software\appTatoo" -Force | Out-Null
-    		New-ItemProperty -path "HKLM:\Software\appTatoo" -Name 'Adobe License' -Value 'Shared' -PropertyType 'String' -Force | Out-Null
+    		New-Item -Path "HKLM:\Software\AppTatoo" -Force
+    		New-ItemProperty -path "HKLM:\Software\AppTatoo" -Name 'Adobe License' -Value 'Shared' -PropertyType 'String' -Force
 		}
 		ELSE {
-    		New-ItemProperty -Path "HKLM:\Software\appTatoo" -Name 'Adobe License' -Value 'Shared' -PropertyType 'String' -Force | Out-Null
+    		New-ItemProperty -Path "HKLM:\Software\AppTatoo" -Name 'Adobe License' -Value 'Shared' -PropertyType 'String' -Force
 		}
 
 		## Display a message at the end of the install
