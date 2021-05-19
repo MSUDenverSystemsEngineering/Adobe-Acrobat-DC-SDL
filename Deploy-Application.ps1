@@ -165,16 +165,16 @@ Try {
 		Remove-File -Path "$envCommonDesktop\Adobe Creative Cloud.lnk" -ContinueOnError $true
 
 		##Tatoo registry to show "Shared" key value
-		$registryPath = "HKLM:\Software\appTatoo"
-		$tatoo = "Adobe License"
-		$tatValue = "Shared"
+		## $registryPath = "HKLM:\Software\AppTatoo"
+		## $tatoo = "Adobe License"
+		## $tatValue = "Shared"
 
-		IF(!(Test-Path $registryPath)) {
-    		New-Item -Path $registryPath -Force | Out-Null
-    		New-ItemProperty -path $registryPath -Name $tatoo -Value $tatValue -PropertyType 'String' -Force | Out-Null
+		IF(!(Test-Path "HKLM:\Software\AppTatoo")) {
+    		New-Item -Path "HKLM:\Software\appTatoo" -Force | Out-Null
+    		New-ItemProperty -path "HKLM:\Software\appTatoo" -Name 'Adobe License' -Value 'Shared' -PropertyType 'String' -Force | Out-Null
 		}
 		ELSE {
-    		New-ItemProperty -Path $registryPath -Name $tatoo -Value $tatValue -PropertyType 'String' -Force | Out-Null
+    		New-ItemProperty -Path "HKLM:\Software\appTatoo" -Name 'Adobe License' -Value 'Shared' -PropertyType 'String' -Force | Out-Null
 		}
 
 		## Display a message at the end of the install
